@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galih & Sabila (True love)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Lato:wght@300;400;700&family=Courier+Prime:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --crimson: #8B0000;
+      --crimson-light: #a51515;
+      --crimson-dark: #5a0000;
+      --cream: #f5e6d3;
+      --white: #ffffff;
+      --black: #0d0d0d;
+      --gray: #888;
+      --torn-shadow: rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--crimson-dark);
+      color: var(--cream);
+      font-family: 'Lato', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image:
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.5;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      text-align: center;
+      padding: 3rem 1rem 1.5rem;
+      position: relative;
+    }
+    .site-header .definition-word {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      color: var(--white);
+      letter-spacing: -2px;
+      line-height: 1;
+      text-shadow: 4px 4px 0 var(--crimson-dark);
+    }
+    .site-header .ipa {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      display: inline-block;
+      margin-left: 0.5rem;
+    }
+    .site-header .pos {
+      font-family: 'Courier Prime', monospace;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.4);
+    }
+    .site-header .definition-text {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+      max-width: 340px;
+      margin: 0.4rem auto 0;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    /* ── DIVIDER ── */
+    .torn-divider {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      margin: 0.5rem 0;
+    }
+    .torn-divider svg { display: block; width: 100%; height: 30px; }
+
+    /* ── MAIN STAGE ── */
+    .couple-stage {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 0;
+      padding: 0 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* ── PERSON CARD ── */
+    .person-card {
+      flex: 1;
+      background: #1a0000;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+      animation: fadeSlideIn 1s ease forwards;
+      opacity: 0;
+    }
+    .person-card:first-child {
+      border-radius: 4px 0 0 4px;
+      animation-delay: 0.2s;
+      clip-path: polygon(0 0, 100% 0, 94% 8%, 100% 16%, 92% 24%, 100% 32%, 95% 40%, 100% 48%, 93% 56%, 100% 65%, 95% 73%, 100% 82%, 94% 90%, 100% 100%, 0 100%);
+    }
+    .person-card:last-child {
+      border-radius: 0 4px 4px 0;
+      animation-delay: 0.4s;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 6% 90%, 0 82%, 5% 73%, 0 65%, 7% 56%, 0 48%, 5% 40%, 0 32%, 8% 24%, 0 16%, 6% 8%, 0 0);
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Photo area */
+    .person-photo-wrap {
+      position: relative;
+      height: 380px;
+      overflow: hidden;
+    }
+    .person-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      filter: grayscale(100%) contrast(1.1);
+      transition: filter 0.6s ease;
+    }
+    .person-card:hover .person-photo-wrap img {
+      filter: grayscale(60%) contrast(1.05);
+    }
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(90,0,0,0.1) 0%, rgba(26,0,0,0.7) 100%);
+    }
+
+    /* Name badge */
+    .person-name-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--crimson);
+      padding: 0.3rem 1.2rem;
+      white-space: nowrap;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    /* Content area */
+    .person-content {
+      padding: 1.4rem 1.6rem 2rem;
+    }
+    .person-content h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.7rem;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+    .person-content .nickname {
+      font-family: 'Courier Prime', monospace;
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--crimson-light);
+      margin-bottom: 0.9rem;
+      letter-spacing: 1px;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 0.45rem;
+    }
+    .info-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--crimson-light);
+      min-width: 70px;
+    }
+    .info-value {
+      font-size: 0.82rem;
+      color: rgba(245,230,211,0.85);
+      line-height: 1.4;
+    }
+
+    .separator {
+      height: 1px;
+      background: linear-gradient(to right, var(--crimson), transparent);
+      margin: 1rem 0;
+    }
+
+    .bio-text {
+      font-size: 0.8rem;
+      line-height: 1.75;
+      color: rgba(245,230,211,0.7);
+      font-style: italic;
+    }
+
+    /* Love note bubble */
+    .love-bubble {
+      display: inline-block;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px 16px 16px 4px;
+      padding: 0.5rem 1rem;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.75rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.6);
+      margin-top: 1rem;
+    }
+    .person-card:last-child .love-bubble {
+      border-radius: 16px 16px 4px 16px;
+    }
+
+    /* ── CENTER DIVIDER ── */
+    .center-divider {
+      width: 2px;
+      background: var(--crimson);
+      position: relative;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+    .center-divider::after {
+      content: '♥';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--crimson);
+      color: white;
+      font-size: 0.9rem;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    /* ── SHARED MESSAGE BANNER ── */
+    .shared-banner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .shared-pill {
+      background: var(--crimson);
+      color: #fff;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.75rem;
+      padding: 0.4rem 1.2rem;
+      letter-spacing: 1px;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    .shared-pill.alt {
+      background: transparent;
+      border: 1px solid var(--crimson-light);
+      color: var(--crimson-light);
+      animation-delay: 1.5s;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* ── PHOTO STRIP ── */
+    .photo-strip {
+      max-width: 1100px;
+      margin: 1rem auto 0;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 0.7rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .photo-strip::-webkit-scrollbar { display: none; }
+    .strip-photo {
+      flex-shrink: 0;
+      width: 130px;
+      height: 100px;
+      background: #2a0000;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: italic;
+      letter-spacing: 1px;
+      text-align: center;
+      transition: border-color 0.3s;
+    }
+    .strip-photo:hover { border-color: var(--crimson-light); }
+    .strip-photo::before {
+      content: '📷';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 0.7rem;
+      opacity: 0.3;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      text-align: center;
+      padding: 2.5rem 1rem 2rem;
+      margin-top: 2rem;
+    }
+    .site-footer .tagline {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.2);
+    }
+    .site-footer .since {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      color: var(--crimson-light);
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    /* ── DECORATIVE ELEMENTS ── */
+    .deco {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .deco-palm {
+      bottom: 10%;
+      left: -30px;
+      opacity: 0.04;
+      font-size: 8rem;
+      transform: rotate(-15deg);
+    }
+    .deco-camera {
+      top: 15%;
+      right: -20px;
+      opacity: 0.05;
+      font-size: 6rem;
+      transform: rotate(10deg);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .couple-stage { flex-direction: column; padding: 0 1rem; }
+      .person-card:first-child, .person-card:last-child {
+        clip-path: none;
+        border-radius: 4px;
+      }
+      .center-divider { width: 100%; height: 2px; }
+      .center-divider::after { top: -14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Decorative -->
+  <div class="deco deco-palm">✋</div>
+  <div class="deco deco-camera">📷</div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div>
+      <span class="definition-word">Love</span>
+      <span class="ipa">Galih</span>
+      <span class="pos">Sabila</span>
+    </div>
+    <p class="definition-text">
+      1. an intense affection for another person based on personal or familial ties.<br>
+      2. deep tenderness, affection, and concern felt for a person with whom one has a relationship.
+    </p>
+  </header>
+
+  <!-- Torn divider top -->
+  <div class="torn-divider">
+    <svg viewBox="0 0 1200 30" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,15 C50,0 80,28 130,15 C180,2 210,25 270,15 C330,5 360,22 420,15 C480,8 510,20 570,15 C630,10 660,22 720,15 C780,8 810,25 870,15 C930,5 960,22 1020,15 C1080,8 1120,25 1200,15 L1200,30 L0,30 Z" fill="#8B0000" opacity="0.3"/>
+    </svg>
+  </div>
+
+  <!-- Couple Stage -->
+  <main class="couple-stage">
+
+    <!-- GALIH -->
+    <div class="person-card">
+      <div class="person-photo-wrap">
+      
+        <img src="pp1.png" alt="Galih Lingganata"/>
+        <div class="photo-overlay"></div>
+        <div class="person-name-badge">from: Galih Lingganata</div>
+      </div>
+      <div class="person-content">
+        <h2>Galih<br/>Lingganata</h2>
+        <div class="nickname">"Alvngalih" · He/Him</div>
+
+        <div class="info-row">
+          <span class="info-label">Lahir</span>
+          <span class="info-value">13 Juli 2005 · Purbalingga</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Hobi</span>
+          <span class="info-value">Game, Musik, Coding</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Zodiak</span>
+          <span class="info-value">Cancer · INFJ</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Pendidikan</span>
+          <span class="info-value">Sistem Informasi | S1 </span>
+        </div>
+
+        <div class="separator"></div>
+
+        <p class="bio-text">
+          Pria yang pendiam, perhatian, dan sedikit misterius. Suka hal-hal yang berbau teknologi, suka minum americano, dan suka segala hal yang berbau hitam. Bagi Galih, Sabila adalah dunia — tempat ia bisa menemukan kebahagiaan sejati dan cinta tanpa syarat.
+        </p>
+
+        <div class="love-bubble">
+          "i always love you bae."
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER -->
+    <div class="center-divider"></div>
+
+    <!-- AILENT -->
+    <div class="person-card">
+      <div class="person-photo-wrap">
+        <!-- Placeholder — ganti src dengan foto asli -->
+        <img src="pp2.png" alt="Sabila Ockta Fitriani"/>
+        <div class="photo-overlay"></div>
+        <div class="person-name-badge">from: Sabila Ockta Fitriani</div>
+      </div>
+      <div class="person-content">
+        <h2>Sabila Ockta <br/>Fitriani</h2>
+        <div class="nickname">"Sabila" · She/Her</div>
+
+        <div class="info-row">
+          <span class="info-label">Lahir</span>
+          <span class="info-value">23 Ocktober 2006 · Purbalingga</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Hobi</span>
+          <span class="info-value">Music, Dance, Kitchen</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Zodiak</span>
+          <span class="info-value">Libra · INFJ</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Pendidikan</span>
+          <span class="info-value">Sistem Informasi | S1 </span>
+        </div>
+
+        <div class="separator"></div>
+
+        <p class="bio-text">
+          Wanita yang ceria, penuh kasih, dan sedikit nakal. Suka musik, suka makan dimsum, dan segala hal yang berbau pink. Bagi Sabila, Galih adalah rumah — tempat ia bisa menjadi dirinya sendiri tanpa takut dihakimi.
+
+        <div class="love-bubble">
+          "i always love you bae."
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Shared messages -->
+  <div class="shared-banner">
+    <span class="shared-pill">you are my one and only.</span>
+    <span class="shared-pill alt">together since · 2020</span>
+  </div>
+
+  <!-- Photo strip -->
+  <div class="photo-strip">
+    <div class="strip-photo">memory<br/>no. 001</div>
+    <div class="strip-photo">memory<br/>no. 002</div>
+    <div class="strip-photo">memory<br/>no. 003</div>
+    <div class="strip-photo">memory<br/>no. 004</div>
+    <div class="strip-photo">memory<br/>no. 005</div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p class="tagline">every moment with you is enough.</p>
+    <p class="since">galih &amp; sabila · est. 2020</p>
+  </footer>
+
+</body>
+</html>
